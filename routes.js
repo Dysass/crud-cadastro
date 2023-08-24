@@ -1,6 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const Person = require('./person');
+const cepPromise = require('cep-promise'); // Importe do módulo cep-promise
+
+// Rota para obter informações de um CEP
+router.get('/cep/:cep', async (req, res) => {
+    try {
+      const cepDetails = await cepPromise(req.params.cep); // Consulta o CEP usando o cep-promise
+      res.json(cepDetails);
+    } catch (error) {
+      res.status(400).json({ message: 'CEP inválido' });
+    }
+  });
 
 // Rota para cadastrar uma nova pessoa
 router.post('/', async (req, res) => {

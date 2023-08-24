@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const cepPromise = require("cep-promise")
 
 // Define o esquema para o objeto Person
 const personSchema = new mongoose.Schema({
