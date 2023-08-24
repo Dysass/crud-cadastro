@@ -11,7 +11,11 @@ router.get('/cep/:cep', async (req, res) => {
     } catch (error) {
       res.status(400).json({ message: 'CEP inválido' });
     }
-  });
+  }
+    let options = {
+        uri: "http://[::1]:8000" + constants.PATH_TO_API,
+        method: 'POST',
+        json: json});
 
 // Rota para cadastrar uma nova pessoa
 router.post('/', async (req, res) => {
