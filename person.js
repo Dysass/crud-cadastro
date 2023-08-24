@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Definir o esquema para o objeto Person
+// Define o esquema para o objeto Person
 const personSchema = new mongoose.Schema({
   nome: {
     type: String,
@@ -25,7 +25,7 @@ const personSchema = new mongoose.Schema({
   UF: String
 });
 
-// Criar o modelo Person com base no esquema
+// Cria o modelo Person com base no esquema
 const Person = mongoose.model('Person', personSchema);
 
 module.exports = Person;
