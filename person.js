@@ -1,22 +1,31 @@
 const mongoose = require('mongoose');
-const express = require('express');
-const mongoose = require('mongoose');
-const axios = require('axios');
-const app = express();
-const routes = require('./routes');
-const Person = mongoose.model('Person', personSchema);
 
+// Definir o esquema para o objeto Person
 const personSchema = new mongoose.Schema({
-  nome: String,
-  cpf: Number,
-  cep: Number,
-  numero: Number,
+  nome: {
+    type: String,
+    required: true
+  },
+  cpf: {
+    type: String,
+    required: true
+  },
+  cep: {
+    type: String,
+    required: true
+  },
+  numero: {
+    type: Number,
+    required: true
+  },
   complemento: String,
   logradouro: String,
   bairro: String,
   cidade: String,
-  UF: String,
+  UF: String
 });
 
+// Criar o modelo Person com base no esquema
+const Person = mongoose.model('Person', personSchema);
 
 module.exports = Person;

@@ -1,25 +1,28 @@
+// Importar as bibliotecas necessárias
 const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const axios = require('axios');
-const app = express();
 const routes = require('./routes');
 
-app.use(express.static('C:\Users\guima\OneDrive\Documentos\CRUD'));
+// Configurar o servidor Express
+const app = express();
+const port = process.env.PORT || 3000;
 
-app.use(express.json());
+// Configurar o middleware bodyParser para interpretar dados JSON
+app.use(bodyParser.json());
 
+// Conectar ao banco de dados MongoDB
+mongoose.connect('mongodb://localhost:27017/cadastro', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log('Conectado ao MongoDB'))
+  .catch(err => console.error('Erro ao conectar ao MongoDB:', err));
+
+// Configurar as rotas do CRUD
+app.use('/cadastro', routes);
+
+// Iniciar o servidor
 app.listen(port, () => {
-    console.log(`Servidor Express está rodando na porta ${port}`);
-  });
-  
-  mongoose.connect('<mongodb+srv://Guilherme123:<password>@crud.2vlfupk.mongodb.net/?retryWrites=true&w=majority>', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  
-  const db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'Erro na conexão com o MongoDB:'));
-  db.once('open', () => {
-    console.log('Conectado ao banco de dados MongoDB');
-  });
-  
+  console.log(`Servidor Express rodando na porta ${port}`);
+});
