@@ -1,6 +1,25 @@
 const CepController = require('../controllers/CepController');
 const Pessoa = require('../models/Pessoa');
-const { save } = require('../utils/mongoUtils');
+const { save, getById } = require('../utils/mongoUtils');
+const { ObjectId } = require('mongodb');
+
+async function getByIdHandler(req, res) {
+    try {
+      const id = req.params.id;
+      const objectId = new ObjectId(id); // Converte o ID para ObjectId
+  
+      const pessoa = await getById(objectId); // Passa o objectId como argumento
+  
+      if (!pessoa) {
+        return res.status(404).json({ message: 'Pessoa não encontrada' });
+      }
+  
+      res.status(200).json(pessoa);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+  
 
 async function create(req, res) {
     try {
@@ -33,4 +52,4 @@ function createNewPessoa(nome, cpf, endereco, cep, numero, complemento) {
     return new Pessoa(nome, cpf, cep, numero, complemento, logradouro, bairro, cidade, uf);
 }
 
-module.exports = { create };
+module.exports = { create, getByIdHandler };

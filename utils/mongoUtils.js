@@ -14,4 +14,19 @@ async function save(data) {
   client.close();
 }
 
-module.exports = { save };
+async function getById(id) {
+  const mongoURI = configDb.mongoURI;
+  const dbName = configDb.dbName;
+  const collectionName = configDb.dbCollection;
+
+  const client = await MongoClient.connect(mongoURI);
+  const db = client.db(dbName);
+
+  const result = await db.collection(collectionName).findOne({ _id: id });
+
+  client.close();
+
+  return result;
+}
+
+module.exports = { save, getById };
