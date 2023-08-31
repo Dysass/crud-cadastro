@@ -1,28 +1,16 @@
-// Importa bibliotecas necessárias
 const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const routes = require('./routes');
-
-// Configurar o servidor Express
 const app = express();
-const port = process.env.PORT || 3000;
 
-// Configura o middleware bodyParser para interpretar dados JSON
-app.use(bodyParser.json());
+const cepRoutes = require('./routes/cep')
+const cadastroRoutes = require('./routes/cadastro')
 
-// Conecta ao banco de dados MongoDB
-mongoose.connect('mongodb://localhost:27017/cadastro', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-  .then(() => console.log('Conectado ao MongoDB'))
-  .catch(err => console.error('Erro ao conectar ao MongoDB:', err));
+const port = 3000;
 
-// Configura rotas do CRUD
-app.use('/cadastro', routes);
+app.use(express.json());
 
-// Inicia o servidor
+app.use('/cep', cepRoutes)
+app.use('/cadastro', cadastroRoutes)
+
 app.listen(port, () => {
-  console.log(`Servidor Express rodando na porta ${port}`);
+  console.log(`Servidor Express está rodando na porta (3000)`);
 });

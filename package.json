@@ -1,16 +1,33 @@
 {
-  "name": "crud-cadastro",
+  "name": "work-friend",
   "version": "1.0.0",
-  "description": "",
+  "description": "crud-cadastro",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "start": "node app.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "javascript",
+    "node.js",
+    "express",
+    "mmongodb",
+    "react",
+    "angular",
+    "vue",
+    "css",
+    "html"
+  ],
+  "author": "guilherme-santos",
   "license": "ISC",
   "dependencies": {
-    "cep-promise": "^4.4.0",
-    "express": "^4.18.2"
+    "axios": "^1.5.0",
+    "express": "^4.18.2",
+    "form-data": "^4.0.0",
+    "mongodb": "^6.0.0",
+    "mongoose": "^7.4.3"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1"
   }
 }
