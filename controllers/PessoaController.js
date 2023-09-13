@@ -1,6 +1,6 @@
 const CepController = require('../controllers/CepController');
 const Pessoa = require('../models/Pessoa');
-const { save, getById, remove, updatePessoa, updateData } = require('../utils/mongoUtils');
+const { save, getById, remove, updateData } = require('../utils/mongoUtils');
 const { ObjectId } = require('mongodb');
 
 

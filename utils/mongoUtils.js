@@ -57,7 +57,7 @@ async function updateData(id, newData) {
   const client = await MongoClient.connect(mongoURI);
   const db = client.db(dbName);
 
-  // Defina os dados que você deseja atualizar, por exemplo:
+
   const updateQuery = {
     $set: {
       nome: newData.nome,
