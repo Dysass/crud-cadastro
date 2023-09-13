@@ -62,12 +62,13 @@ async function updateData(id, newData) {
     $set: {
       nome: newData.nome,
       cpf: newData.cpf,
+      cep: newData.cep,
       numero: newData.numero,
       complemento: newData.complemento,
       logradouro: newData.logradouro,
-      bairro: newData.logradouro,
+      bairro: newData.bairro,
       cidade: newData.cidade,
-      uf: newData.uf,
+      uf: newData.uf
     }
   };
 
@@ -81,5 +82,6 @@ async function updateData(id, newData) {
 
   return { message: 'Cadastro atualizado com sucesso' };
 }
+
 
 module.exports = { save, getById, remove, updateData };

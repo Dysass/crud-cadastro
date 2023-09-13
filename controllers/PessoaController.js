@@ -1,17 +1,15 @@
 const CepController = require('../controllers/CepController');
 const Pessoa = require('../models/Pessoa');
-const { save, getById } = require('../utils/mongoUtils');
+const { save, getById, remove, updatePessoa, updateData } = require('../utils/mongoUtils');
 const { ObjectId } = require('mongodb');
-const { remove } = require('../utils/mongoUtils');
-const { updateData } = require('../utils/mongoUtils');
 
 
 async function getByIdHandler(req, res) {
     try {
         const id = req.params.id;
-        const objectId = new ObjectId(id); // Converte o ID para ObjectId
+        const objectId = new ObjectId(id);
 
-        const pessoa = await getById(objectId); // Passa o objectId como argumento
+        const pessoa = await getById(objectId);
 
         if (!pessoa) {
             return res.status(404).json({ message: 'Pessoa não encontrada' });
@@ -27,9 +25,7 @@ async function getByIdHandler(req, res) {
 async function create(req, res) {
     try {
         const { nome, cpf, cep, numero, complemento } = req.body;
-
         const endereco = await getCepData(cep);
-
         const newPessoa = createNewPessoa(nome, cpf, endereco, cep, numero, complemento);
 
         await save(newPessoa)
@@ -38,6 +34,12 @@ async function create(req, res) {
     } catch (error) {
         res.status(500).json(error);
     }
+}
+
+function createNewPessoa(nome, cpf, endereco, cep, numero, complemento) {
+  const { logradouro, bairro, localidade: cidade, uf } = endereco;
+
+  return new Pessoa(nome, cpf, cep, numero, complemento, logradouro, bairro, cidade, uf);
 }
 
 async function deletePerson(id) {
@@ -60,22 +62,30 @@ async function getCepData(cep) {
     }
 }
 
-function createNewPessoa(nome, cpf, endereco, cep, numero, complemento) {
-    const { logradouro, bairro, localidade: cidade, uf } = endereco;
-
-    return new Pessoa(nome, cpf, cep, numero, complemento, logradouro, bairro, cidade, uf);
-}
-
-
 async function update(id, newData) {
-    try {
-      const objectId = new ObjectId(id);
-      const updatedData = await updateData(objectId, newData);
-      return updatedData;
-    } catch (error) {
-      throw error;
-    }
+  try {
+    const objectId = new ObjectId(id);
+    const endereco = await getCepData(newData.cep);
+
+    const updatedData = {
+      nome: newData.nome,
+      cpf: newData.cpf,
+      cep: newData.cep,
+      numero: newData.numero,
+      complemento: newData.complemento,
+      logradouro: endereco.logradouro,
+      bairro: endereco.bairro,
+      cidade: endereco.localidade,
+      uf: endereco.uf
+    };
+
+    const result = await updateData(objectId, updatedData);
+
+    return { message: result.message };
+  } catch (error) {
+    throw error;
   }
+}
 
 
 module.exports = { create, getByIdHandler, deletePerson, update };
