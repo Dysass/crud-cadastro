@@ -30,5 +30,12 @@
   },
   "devDependencies": {
     "dotenv": "^16.3.1"
+  },
+  "resolutions": {
+    "mongodb": "6.0.0",
+    "debug": "2.6.9",
+    "ms": "2.0.0",
+    "bson": "6.1.0",
+    "tslib": "2.6.2"
   }
 }
