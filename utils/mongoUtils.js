@@ -1,7 +1,6 @@
 const { MongoClient, ObjectId } = require('mongodb');
 const configDb = require('./../config/configDb');
 
-
 async function save(data) {
   const mongoURI = configDb.mongoURI
   const dbName = configDb.dbName;

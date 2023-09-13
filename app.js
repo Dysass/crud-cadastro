@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 
+
 const cepRoutes = require('./routes/cep')
 const cadastroRoutes = require('./routes/cadastro')
 
