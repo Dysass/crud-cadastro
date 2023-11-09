@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "crud-cadastro",
   "main": "index.js",
+  "engines": {
+    "node": ">=18.17.1 <19.0.0"
+  },
   "scripts": {
     "test": "mocha",
     "start": "node app.js + node index.js"
