@@ -1,5 +1,5 @@
 class Pessoa {
-    constructor(nome, cpf, cep, numero, complemento, logradouro, bairro, cidade, uf) {
+    constructor(nome, cpf, cep, numero, complemento, logradouro, bairro, localidade, uf) {
       this.nome = nome;
       this.cpf = cpf;
       this.cep = cep;
@@ -7,7 +7,7 @@ class Pessoa {
       this.complemento = complemento;
       this.logradouro = logradouro;
       this.bairro = bairro;
-      this.cidade = cidade;
+      this.localidade = localidade;
       this.uf = uf;
     }
 }
